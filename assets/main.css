@@ -1,0 +1,157 @@
+a {
+    text-decoration: none;/*убрать подчеркивание у ссылок*/
+}
+
+td {
+    border: 2px solid chocolate;
+
+}
+
+/*FOOTER*/
+
+#footer {
+    position: relative;
+
+    padding-left: 15%;
+    padding-right: 15%;
+    width: 100%;
+}
+
+#footer-tr {
+    /*position: relative;*/
+    width: 100%;
+}
+
+#footer-td1 {
+    /*width: 20%;*/
+}
+
+#footer-td2 {
+    /*width: 20%;*/
+
+}
+
+#footer-td3 {
+    /*width: 20%;*/
+}
+
+#footer td {
+    position: relative;
+    /*display: inline-block;*/
+    /*width: 32%;*/
+}
+
+/*FOOTER*/
+
+
+table {
+    border-collapse: collapse; /*убирает рамки таблицы*/
+    margin: 0;
+    width: 100%;
+}
+
+body{
+    width: 100%;
+    margin: 0;
+}
+
+
+/*HEADER*/
+
+
+#header ul {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+#td-1 ul li {
+    height: 100%;
+    list-style-type: none; /*убрать точку у ссылок*/
+}
+#td-1 h1 {
+    margin: 0;
+
+}
+#td-1 a {
+    animation: none;
+    color: blueviolet;
+    text-align: left;
+}
+
+#td-2 ul li{
+    float: right;
+    /*padding: 0.9rem;*/
+    padding-right: 5px;
+    vertical-align: middle;
+    list-style-type: none;
+    height: 57px;
+}
+
+#td-2 ul li a{
+    /*padding: 10px;*/
+    display: block;
+    padding: 0.9rem;
+    font-size: 150%;
+    color: blueviolet;
+}
+
+#header {
+    font-family: sans-serif;
+    position: sticky;
+    top: 0;
+    background: black;
+    color: blueviolet;
+    height: 57px;
+    z-index: 1000;  /*для перекрытия других элементов*/
+
+    width: 100%;
+}
+
+#header-tr {
+    /*background: black;*/
+    height: 100%;
+    width: 100%;
+}
+
+#td-1 {
+    margin: 0;
+    padding-left: 15%;
+    height: 100%;
+    /*width: 50%;*/
+}
+
+#td-2 {
+    padding-right: 15%;
+    margin: 0;
+    /*width: 51%;*/
+    height: 100%;
+}
+
+/*HEADER*/
+
+#main {
+    position: relative;
+    width: 100%;
+
+}
+
+.xyz{
+    height: 100px;
+}
+
+#main-td1 {
+    width: 10%;
+    /*height: 250px;*/
+    /*width: 30%;*/
+}
+
+
+
+
+
+
+/*.main-tr {*/
+/*    position: relative;*/
+/*    min-height: 700px;*/
+/*}*/

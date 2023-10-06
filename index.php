@@ -1,6 +1,6 @@
 <!doctype html>
 <?php
-include("path.php");
+include "path.php";
 
 ?>
 <html lang="ru">
@@ -8,39 +8,41 @@ include("path.php");
     <meta charset="UTF-8">
     <title>Первая лаба по Вебу</title>
     <link rel="stylesheet" href="assets/main.css">
-    <script src="lab1/draw.js" defer crossorigin="anonymous"></script>
-    <script src="lab1/script.js" defer crossorigin="anonymous"></script>
+    <script src="lab1/draw.js" defer></script>
+    <script src="lab1/script.js" defer></script>
 </head>
 
 
 <table>
 
 
-    <?php include('logic/include/FooterHeader/header.php') ?>
+    <?php include 'logic/include/FooterHeader/header.php' ?>
 
     <tbody id="main">
 
         <tr id="main-tr">
 
-            <td id="main-td1">начало 1</td>
+            <td id="main-td1"></td>
             <td colspan="2">
 
                 <canvas id="canvas" height="325" width="325">
 
             </td>
 
-            <td id="main-td1">начало 4</td>
-            <td id="main-td1">начало 5</td>
+            <td id="main-td1"></td>
+            <td id="main-td1"></td>
 
             <td colspan="4">
                 <table class="result-table">
                     <thead>
-                    <td>X</td>
-                    <td>Y</td>
-                    <td>R</td>
-                    <td>RESULT</td>
-                    <td>Current time</td>
-                    <td>Computation time</td>
+                    <tr>
+                        <td>X</td>
+                        <td>Y</td>
+                        <td>R</td>
+                        <td>RESULT</td>
+                        <td>Current time</td>
+                        <td>Computation time</td>
+                    </tr>
                     </thead>
                     <tbody id="table-out">
 
@@ -50,16 +52,16 @@ include("path.php");
 
 
 
-            <td id="main-td1">начало 10</td>
+            <td id="main-td1"></td>
         </tr>
 
 
         <tr class="xyz" id="main-tr">
 
-            <td id="main-td1">начало 1</td>
+            <td id="main-td1"></td>
 
             <td id="main-td1" colspan="3" rowspan="2">
-                <form method="post" id="form2">
+                <form id="form2">
 
                 <label> выберите R
                     <select id="radiusR" name="radiusR">
@@ -79,56 +81,56 @@ include("path.php");
                     <br>
                     Выберите координату Y
                     <br>
-                    <input type="radio" name="coordY" value="-2" checked>-2
-                    <input type="radio" name="coordY" value="-1.5">-1.5
-                    <input type="radio" name="coordY" value="-1">-1
-                    <input type="radio" name="coordY" value="-0.5">-0.5
-                    <input type="radio" name="coordY" value="0">0
-                    <input type="radio" name="coordY" value="0.5">0.5
-                    <input type="radio" name="coordY" value="1">1
-                    <input type="radio" name="coordY" value="1.5">1.5
-                    <input type="radio" name="coordY" value="2">2
+                    <input class="radio-coords" type="radio" name="coordY" value="-2" checked>-2
+                    <input class="radio-coords" type="radio" name="coordY" value="-1.5">-1.5
+                    <input class="radio-coords" type="radio" name="coordY" value="-1">-1
+                    <input class="radio-coords" type="radio" name="coordY" value="-0.5">-0.5
+                    <input class="radio-coords" type="radio" name="coordY" value="0">0
+                    <input class="radio-coords" type="radio" name="coordY" value="0.5">0.5
+                    <input class="radio-coords" type="radio" name="coordY" value="1">1
+                    <input class="radio-coords" type="radio" name="coordY" value="1.5">1.5
+                    <input class="radio-coords" type="radio" name="coordY" value="2">2
 
                 </form>
             </td>
 
-            <td id="main-td1">начало 5</td>
-            <td id="main-td1">начало 6</td>
-            <td id="main-td1">начало 7</td>
-            <td id="main-td1">начало 8</td>
-            <td id="main-td1">начало 9</td>
-            <td id="main-td1">начало 10</td>
+            <td id="main-td1"></td>
+            <td id="main-td1"></td>
+            <td id="main-td1"></td>
+            <td id="main-td1"></td>
+            <td id="main-td1"></td>
+            <td id="main-td1"></td>
         </tr>
 
         <tr class="xyz" id="main-tr">
 
-            <td id="main-td1">начало 1</td>
-            <td id="main-td1">начало 5</td>
-            <td id="main-td1">начало 6</td>
-            <td id="main-td1">начало 7</td>
-            <td id="main-td1">начало 8</td>
-            <td id="main-td1">начало 9</td>
-            <td id="main-td1">начало 10</td>
+            <td id="main-td1"></td>
+            <td id="main-td1"></td>
+            <td id="main-td1"></td>
+            <td id="main-td1"></td>
+            <td id="main-td1"></td>
+            <td id="main-td1"></td>
+            <td id="main-td1"></td>
         </tr>
 
 
         <tr class="xyz" id="main-tr">
 
-            <td id="main-td1">начало 1</td>
+            <td id="main-td1"></td>
 
 
             <td id="main-td1" colspan="3">
 
-                <button id="button" name="button-send" type="submit" form="form2">Отправить</button>
+                <button id="button-coords" name="button-send" type="submit" form="form2">Отправить</button>
 
             </td>
 
-            <td id="main-td1">начало 5</td>
-            <td id="main-td1">начало 6</td>
-            <td id="main-td1">начало 7</td>
-            <td id="main-td1">начало 8</td>
-            <td id="main-td1">начало 9</td>
-            <td id="main-td1">начало 10</td>
+            <td id="main-td1"></td>
+            <td id="main-td1"></td>
+            <td id="main-td1"></td>
+            <td id="main-td1"></td>
+            <td id="main-td1"></td>
+            <td id="main-td1"></td>
         </tr>
 
 

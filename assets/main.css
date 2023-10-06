@@ -3,9 +3,13 @@ a {
 }
 
 td {
-    border: 2px solid chocolate;
-
+    /*border: 2px solid chocolate;*/
 }
+
+.result-table td {
+    border: 2px solid #a83dff;
+}
+
 
 /*FOOTER*/
 
@@ -69,6 +73,14 @@ body{
     height: 100%;
     list-style-type: none; /*убрать точку у ссылок*/
 }
+
+#td-2 ul li a:hover {
+    transition-delay: 0.15s;
+    color: #a83dff;
+    height: 100%;
+    list-style-type: none; /*убрать точку у ссылок*/
+}
+
 #td-1 h1 {
     margin: 0;
 
@@ -144,6 +156,45 @@ body{
     width: 10%;
     /*height: 250px;*/
     /*width: 30%;*/
+}
+
+
+
+#button-coords {
+
+    padding: 4px;
+    background: #413f3f;
+    color: aliceblue;
+    border-radius: 66px;
+}
+
+#button-coords:hover {
+    color: #ffffff;
+    background: #525050;
+    transition-delay: 0.1s;
+}
+
+.radio-coords {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+
+    border: 2px solid #545353;
+    transition: 0.2s all linear;
+    outline: none;
+    margin-right: 5px;
+
+    position: relative;
+    top: 4px;
+
+}
+
+.radio-coords:checked {
+    border: 6px solid #545353;
 }
 
 

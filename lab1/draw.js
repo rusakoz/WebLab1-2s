@@ -77,7 +77,6 @@ function draw(){
 
 }
 
-//printPoint(3, -1, 3.5)
 
 function printPoint(R, X, Y){
     draw()
@@ -85,6 +84,5 @@ function printPoint(R, X, Y){
     let y = 149.4 + (-50 / R) * Y
     ctx.fillStyle = 'red'
     ctx.fillRect(x, y, 4, 4)
-
 
 }

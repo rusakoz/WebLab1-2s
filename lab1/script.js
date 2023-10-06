@@ -1,101 +1,110 @@
-let button = document.getElementById('button');
-let count = 5;
-let validFlag;
-button.addEventListener('click', function (event){
+// const url = 'https://randomuser.me/api/?results=10'; // 10 случайных "пользователей"
+
+const form = document.getElementById('form2');
+let countScroll = 0;
+
+function validX(coordX){
+    if (coordX <= 3 && coordX >= -3 && coordX !== '')
+        return true;
+}
+
+function getRadioValueByName(elemRadio) {
+    for(let i = 0; i < elemRadio.length; i++){
+        if(elemRadio[i].checked)
+            return elemRadio[i].value
+    }
+}
+
+form.addEventListener('submit', function (event){
+
     event.preventDefault()
 
-    let coordX = document.getElementById('coordX')
+    const coordX = document.getElementById('coordX')
+    const radiusR = document.getElementById('radiusR')
+    const radio = document.getElementsByName('coordY');
 
-    validFlag = coordX.value <= 3 && coordX.value >= -3 && coordX.value !== '';
+    const coordY = getRadioValueByName(radio);
 
-    let radiusR = document.getElementById('radiusR')
-    let rates = document.getElementsByName('coordY');
-    let coordY;
+    //Если вдруг кто-то уберет checked
+    if (coordY === 'undefined'){
+        removeIfExists('errMessage')
+        const formHTML = document.getElementById('form2');
+        appendBeforeError('Выберите координату Y', formHTML);
+        return;
+    }
 
-    for(let i = 0; i < rates.length; i++){
-        if(rates[i].checked){
-            coordY = rates[i].value;
+    if (!validX(coordX.value)){
+        removeIfExists('errMessage')
+        const formHTML = document.getElementById('form2');
+        appendBeforeError('Не верно введена координата X', formHTML);
+        return;
+    }
 
+
+    const formData = new FormData();
+    formData.append('coordX', parseFloat(coordX.value))
+    formData.append('coordY', coordY)
+    formData.append('radiusR', radiusR.value)
+    fetch('lab1/script.php', {
+        method: 'POST',
+        body: formData
+    }).then((res) => {
+
+        if (res.status !== 200){
+            alert(errorsList.get(res.statusText))
+            return Promise.reject(res.status)
         }
 
-    }
+        res.json().then((res) => {
 
-    if (validFlag) {
-        let formData = new FormData();
-        formData.append('coordX', parseFloat(coordX.value))
-        formData.append('coordY', coordY)
-        formData.append('radiusR', radiusR.value)
-        fetch('lab1/script.php', {
-            method: 'POST',
-            body: formData
-        }).then((res) => {
-            return res.text().then((a) => {
-                return a
-            })
+            removeIfExists('errMessage')
 
-        }).then((res) => {
-            console.log(res.split(';'))
-            res = res.split(';')
-            if (res[0] === 'Попал' || res[0] === 'Не попал') {
-                if (document.getElementById('errMessage')) document.getElementById('errMessage').remove()
-                if (count >= 10 && count !== 5) {
-                    count++
+            scrollTable(res['R'], res['X'], res['Y'], res['state'], res['date'], res['time'], document.querySelectorAll('#table-out > tr'), 0, 5, countScroll)
+            countScroll++
 
-                    document.getElementById((count - 5).toString()).remove()
+            printPoint(res['R'], res['X'], res['Y'])
 
-                    appendBody(res[1], res[2], res[3], res[0], res[4], res[5], count.toString())
-                    printPoint(res[1], res[2], res[3])
-                } else {
-                    count++
+        })
+    }).catch((err) => console.warn(err))
 
-                    appendBody(res[1], res[2], res[3], res[0], res[4], res[5], count.toString())
-                    printPoint(res[1], res[2], res[3])
-                }
-
-            } else {
-                if (document.getElementById('errMessage')) document.getElementById('errMessage').remove()
-                let formHTML = document.getElementById('form2')
-                appendBeforeError(res[5], formHTML)
-            }
-
-        }).catch((err) => console.warn(err))
-    }else {
-        if (document.getElementById('errMessage')) document.getElementById('errMessage').remove()
-        let formHTML = document.getElementById('form2')
-        appendBeforeError('Не верно введена координата X', formHTML)
-    }
 })
 
-function appendBeforeError(text, HTMlelem) {
-    let errHTML = document.createElement('h4')
+
+function removeIfExists(elemId){
+    const el = document.getElementById(elemId)
+    if (el) el.remove()
+}
+
+function scrollTable(R, X, Y, res, curTime, workTime, collectionElem, startCount, quantityElem, nowCount){
+    if (nowCount >= startCount + quantityElem && nowCount !== startCount)
+        collectionElem[0].remove()
+
+    appendBody(R, X, Y, res, curTime, workTime)
+}
+
+function appendBeforeError(text, elemHTML) {
+    const errHTML = document.createElement('h4')
     errHTML.style.color = 'red';
     errHTML.textContent = text;
     errHTML.id = 'errMessage'
 
-    HTMlelem.before(errHTML)
+    elemHTML.before(errHTML)
 }
 
-function appendBody(r, x, y, res, curTime, workTime, className){
-    let tableOut = document.getElementById('table-out');
-    let tr = document.createElement('tr')
-    tr.id = className
-    let one = document.createElement('td')
-    one.className = className
+function appendBody(r, x, y, res, curTime, workTime){
+    const tableOut = document.getElementById('table-out');
+    const tr = document.createElement('tr')
+    const one = document.createElement('td')
     one.textContent = r
-    let two = document.createElement('td')
-    two.className = className
+    const two = document.createElement('td')
     two.textContent = x
-    let three = document.createElement('td')
-    three.className = className
+    const three = document.createElement('td')
     three.textContent = y
-    let four = document.createElement('td')
-    four.className = className
+    const four = document.createElement('td')
     four.textContent = res
-    let five = document.createElement('td')
-    five.className = className
+    const five = document.createElement('td')
     five.textContent = curTime
-    let six = document.createElement('td')
-    six.className = className
+    const six = document.createElement('td')
     six.textContent = workTime
 
     tableOut.append(tr)
@@ -106,3 +115,7 @@ function appendBody(r, x, y, res, curTime, workTime, className){
     tr.append(five)
     tr.append(six)
 }
+
+const errorsList = new Map([
+    ['Incorrect coordinates or it isn`t number', 'Не корректно введены координаты или это не число']
+])

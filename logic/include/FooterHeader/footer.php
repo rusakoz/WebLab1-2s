@@ -2,19 +2,19 @@
 
     <tr id="footer-tr">
         <td id="footer-td1">
-            Футер1
+            Футер
         </td>
         <td id="footer-td2" colspan="3">
-            Футер2
+            Футер
         </td>
         <td id="footer-td3" colspan="2">
-            Футер3
+            Футер
         </td>
         <td id="footer-td2" colspan="3">
-            Футер4
+            Футер
         </td>
         <td id="footer-td1">
-            Футер1
+            Футер
         </td>
     </tr>
 

@@ -1,11 +1,44 @@
 // const url = 'https://randomuser.me/api/?results=10'; // 10 случайных "пользователей"
 
+const errorsList = new Map([
+    ['Incorrect coordinates or it isn`t number', 'Не корректно введены координаты или это не число'],
+    ['Bad Request', 'Произошла ошибка на стороне сервера']
+])
+
 const form = document.getElementById('form2');
+const overlay = document.getElementById('overlay');
+const popup = document.getElementById('popup');
+const popupText = document.getElementById('popup-text')
+const popupCloseBtn = document.getElementById('close-btn-popup')
 let countScroll = 0;
 
+function setPopup(info){
+    overlay.classList.add('show')
+    popupText.textContent = info
+    popup.style.display = 'block'
+    popupCloseBtn.addEventListener('click', () => {
+        overlay.classList.remove('show')
+        popup.style.display = 'none'
+    })
+}
+
+function getErr(errText){
+    if (errorsList.get(errText))
+        return errorsList.get(errText)
+    return errText
+}
+
+function validR(coordR){
+    return coordR >= 1 && coordR <= 5 && coordR !== ''
+}
+
 function validX(coordX){
-    if (coordX <= 3 && coordX >= -3 && coordX !== '')
-        return true;
+    return coordX >= -3 && coordX <= 3 && coordX !== ''
+}
+
+function validY(coordY){
+    return (coordY === -2 || coordY === -1.5 || coordY === -1 || coordY === -0.5 || coordY === 0 || coordY === 0.5
+        || coordY === 1 || coordY === 1.5 || coordY === 2)
 }
 
 function getRadioValueByName(elemRadio) {
@@ -14,29 +47,20 @@ function getRadioValueByName(elemRadio) {
             return elemRadio[i].value
     }
 }
-
 form.addEventListener('submit', function (event){
 
     event.preventDefault()
 
     const coordX = document.getElementById('coordX')
     const radiusR = document.getElementById('radiusR')
-    const radio = document.getElementsByName('coordY');
 
+    const radio = document.getElementsByName('coordY');
     const coordY = getRadioValueByName(radio);
 
-    //Если вдруг кто-то уберет checked
-    if (coordY === 'undefined'){
+    if (!validX(coordX.value) || !validY(parseFloat(coordY)) || !validR(radiusR.value)){
         removeIfExists('errMessage')
         const formHTML = document.getElementById('form2');
-        appendBeforeError('Выберите координату Y', formHTML);
-        return;
-    }
-
-    if (!validX(coordX.value)){
-        removeIfExists('errMessage')
-        const formHTML = document.getElementById('form2');
-        appendBeforeError('Не верно введена координата X', formHTML);
+        appendBeforeError('Неверно введены координаты', formHTML);
         return;
     }
 
@@ -51,7 +75,8 @@ form.addEventListener('submit', function (event){
     }).then((res) => {
 
         if (res.status !== 200){
-            alert(errorsList.get(res.statusText))
+            console.log(res.statusText)
+            setPopup(getErr(res.statusText))
             return Promise.reject(res.status)
         }
 
@@ -116,6 +141,4 @@ function appendBody(r, x, y, res, curTime, workTime){
     tr.append(six)
 }
 
-const errorsList = new Map([
-    ['Incorrect coordinates or it isn`t number', 'Не корректно введены координаты или это не число']
-])
+

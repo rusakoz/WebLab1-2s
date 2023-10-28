@@ -2,7 +2,7 @@
 $timeStart = microtime(true);
 $result = [];
 
-function checkHit($X, $Y, $R): bool
+function checkHit($X, $Y, $R) : bool
 {
     if ((abs($X) <= $R && $Y <= $R && $Y >= 0 && $X <= 0) ||
         ($X * $X + $Y * $Y <= $R * $R && $X >= 0 && $Y >= 0) ||
@@ -12,7 +12,7 @@ function checkHit($X, $Y, $R): bool
     return false;
 }
 
-function validX($validX) :bool
+function validX($validX) : bool
 {
     if (is_numeric($validX)){
         if ($validX >= -2 && $validX <= 3)

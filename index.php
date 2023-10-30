@@ -51,9 +51,6 @@ include "path.php";
                     </tbody>
                 </table>
             </td>
-
-
-
             <td id="main-td1"></td>
         </tr>
 

@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $Y = $_POST['coordY'];
     $R = $_POST['radiusR'];
 
-    if (!(validX($X) && validY($Y) && validR($R))){
+    if ((validX($X) && validY($Y) && validR($R))){
         header('HTTP/1.1 400 Incorrect coordinates or it isn`t number', false, 400);
     }
 
@@ -61,5 +61,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     echo json_encode($result);
 
 }
-
-

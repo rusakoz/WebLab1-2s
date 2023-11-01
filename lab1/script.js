@@ -2,14 +2,16 @@
 
 const errorsList = new Map([
     ['Incorrect coordinates or it isn`t number', 'Не корректно введены координаты или это не число'],
-    ['Bad Request', 'Произошла ошибка на стороне сервера']
+    ['Bad Request', 'Произошла ошибка при обработке данных на сервере']
 ])
 
 const form = document.getElementById('form2');
+
 const overlay = document.getElementById('overlay');
 const popup = document.getElementById('popup');
 const popupText = document.getElementById('popup-text')
 const popupCloseBtn = document.getElementById('close-btn-popup')
+
 let countScroll = 0;
 
 function setPopup(info){
@@ -23,9 +25,7 @@ function setPopup(info){
 }
 
 function getErr(errText){
-    if (errorsList.get(errText))
-        return errorsList.get(errText)
-    return errText
+    return errorsList.get(errText) || errText
 }
 
 function validR(coordR){
@@ -64,9 +64,8 @@ form.addEventListener('submit', function (event){
         return;
     }
 
-
     const formData = new FormData();
-    formData.append('coordX', parseFloat(coordX.value))
+    formData.append('coordX', coordX.value)
     formData.append('coordY', coordY)
     formData.append('radiusR', radiusR.value)
     fetch('lab1/script.php', {
@@ -75,36 +74,36 @@ form.addEventListener('submit', function (event){
     }).then((res) => {
 
         if (res.status !== 200){
-            console.log(res.statusText)
             setPopup(getErr(res.statusText))
             return Promise.reject(res.status)
         }
 
-        res.json().then((res) => {
+        return res.json()
 
-            removeIfExists('errMessage')
+    }).then((res) => {
 
-            scrollTable(res['R'], res['X'], res['Y'], res['state'], res['date'], res['time'], document.querySelectorAll('#table-out > tr'), 0, 5, countScroll)
-            countScroll++
+        removeIfExists('errMessage')
 
-            printPoint(res['R'], res['X'], res['Y'])
+        scrollTable(res)
+        countScroll++
 
-        })
+        printPoint(res['R'], res['X'], res['Y'])
+
     }).catch((err) => console.warn(err))
-
 })
-
 
 function removeIfExists(elemId){
     const el = document.getElementById(elemId)
     if (el) el.remove()
 }
 
-function scrollTable(R, X, Y, res, curTime, workTime, collectionElem, startCount, quantityElem, nowCount){
-    if (nowCount >= startCount + quantityElem && nowCount !== startCount)
-        collectionElem[0].remove()
+function scrollTable(res){
+    const startCount = 0
+    const quantityElem = 5
+    if (countScroll >= startCount + quantityElem && countScroll !== startCount)
+        document.querySelectorAll('#table-out > tr')[0].remove()
 
-    appendBody(R, X, Y, res, curTime, workTime)
+    appendBody(res['R'], res['X'], res['Y'], res['state'], res['date'], res['time'])
 }
 
 function appendBeforeError(text, elemHTML) {

@@ -15,8 +15,10 @@ include "path.php";
 
 <table>
 
+    <?php include 'logic/include/Modal/alert.php' ?>
 
     <?php include 'logic/include/FooterHeader/header.php' ?>
+
 
     <tbody id="main">
 
@@ -39,7 +41,7 @@ include "path.php";
                         <td>X</td>
                         <td>Y</td>
                         <td>R</td>
-                        <td>RESULT</td>
+                        <td>SUCCESS</td>
                         <td>Current time</td>
                         <td>Computation time</td>
                     </tr>
